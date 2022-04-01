@@ -49,7 +49,6 @@ function Tab() {
 	const TabNav = createBottomTabNavigator()
 	return (
 		<TabNav.Navigator screenOptions={tabBarIcon} tabBarOptions={tabBarOptions} >
-			{/* <TabNav.Screen name="Home" component={HomeScreen} /> */}
 			<TabNav.Screen name="Laundry" component={LaundryScreen} />
 			{/* <TabNav.Screen name="Shop" component={ShopScreen} /> */}
 			<TabNav.Screen name="Orders" component={OrdersScreen} />
