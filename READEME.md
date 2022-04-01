@@ -1,1 +1,0 @@
-## Miracle Fit Mobile App
