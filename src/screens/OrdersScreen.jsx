@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, ScrollView, TouchableHighlight, Dimensions } from 'react-native'
+import { StyleSheet, View, Text, ScrollView, TouchableHighlight, Dimensions, Image } from 'react-native'
 import { Fonts } from '../global/Fonts'
 import { Color } from '../global/Colors'
-import { orders } from '../../mocks/orders'
 import axios from 'axios'
 import moment from "moment"
+
+import laundry from "../assets/img/icons/laundry.png"
+import tailoring from "../assets/img/icons/tailoring.png"
 
 const { width } = Dimensions.get("screen")
 
@@ -13,6 +15,7 @@ class Orders extends Component {
         super(props);
         this.state = {
             appointments: [],
+            orders: [],
             items: ["All", "Completed", "Requested", "Canceled"],
             Filter: {
                 isAll: true,
@@ -26,9 +29,19 @@ class Orders extends Component {
     }
 
     fetAppointments = async () => {
-        await axios.get("http://192.168.0.146:3000/appointments").then((res) => {
+        await axios.get("http://localhost:3000/appointments").then((res) => {
             this.setState({
-                appointments: res.data.appointments
+                appointments: res.data.data
+            })
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
+    fetOders = async () => {
+        await axios.get("http://localhost:3000/orders").then((res) => {
+            this.setState({
+                orders: res.data.data
             })
         }).catch((err) => {
             console.log(err)
@@ -47,28 +60,37 @@ class Orders extends Component {
             id: 0
         })
     }
+
     componentDidMount() {
         this.fetAppointments()
+        this.fetOders()
+        this.props.navigation.addListener('focus', () => {
+            this.fetOders()
+        })
     }
 
 
 
     render() {
+        const { appointments, orders } = this.state
+        const sortByDate = appointments.concat(orders).sort((a, b) => {
+            return new Date(b.createdAt) - new Date(a.createdAt)
+        })
+        console.log(sortByDate, "sort")
         return (
             <View style={styles.Appointments}>
-                {!this.state.appointments.length == 0 ?
+                {sortByDate.length > 0 ?
                     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.Scroll}>
-                        {this.state.appointments.map((appointment, key) => (
+                        {sortByDate.map((appointment, key) => (
                             <TouchableHighlight underlayColor="white" key={key} style={styles.Orders} onPress={(e) => this.handleOnPress(appointment.id)}>
                                 <View style={styles.DetailsBox}>
                                     <View style={styles.Top}>
-                                        <Text style={{ fontSize: 20, color: "#000000", fontWeight: "bold", fontFamily: Fonts.interRegular, textTransform: "capitalize" }}>{appointment.fullName}</Text>
-                                        <Text style={{ paddingRight: 10, fontFamily: Fonts.interRegular }}>{`#${appointment.appointmentId.slice(0, 10)}`}</Text>
+                                        <Text style={{ fontSize: 20, color: "#000000", fontWeight: "bold", fontFamily: Fonts.interRegular, textTransform: "capitalize" }}>{appointment.user.fullName}</Text>
+                                        <Text style={{ paddingRight: 10, fontFamily: Fonts.interRegular }}>{`#${"423543654725"}`}</Text>
                                     </View>
                                     <View style={styles.Bottom}>
                                         <View style={styles.BottomLeft}>
-                                            <Text style={{ fontSize: 15, color: "rgba(112,112,112,1)", fontFamily: Fonts.interRegular }}>Tailor</Text>
-                                            <Text style={{ fontSize: 15, color: "rgba(000,000,000,0.7)", paddingTop: 5, fontFamily: Fonts.interRegular, textTransform: "capitalize", fontWeight: "bold" }}>{appointment.tailor}</Text>
+                                            <Image source={ appointment.isAOrder ? laundry : tailoring} style={{ width: 30, height: 30 }} />
                                         </View>
                                         <View style={styles.BottomRight}>
                                             <Text style={{ fontSize: 15, color: "rgba(112,112,112,1)", fontFamily: Fonts.interRegular, }}>Schedule</Text>
@@ -91,6 +113,7 @@ class Orders extends Component {
         )
     }
 }
+
 const styles = StyleSheet.create({
     Appointments: {
         width: "100%",

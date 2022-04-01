@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Image, Dimensions, TouchableHighlight, Linking } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, Linking } from 'react-native'
 import { Color } from '../global/Colors'
 import { Fonts } from '../global/Fonts'
 import { Switch } from "react-native-paper"
@@ -69,7 +69,6 @@ class Profile extends Component {
             <View style={styles.Profile}>
                 <View style={styles.ProfilePictureContainer}>
                     <View style={[styles.ProfilePictureImgBox, { borderColor: Color.clearGray }]}>
-                        {/* <Image style={styles.ProfilePicture} source={Avatar} /> */}
                         <Text style={{ fontSize: 35, color: Color.lightGray, fontFamily: Fonts.interRegular }}>BD</Text>
                     </View>
                     <View>
@@ -79,9 +78,9 @@ class Profile extends Component {
                 <View style={styles.ProfileTitlesContainer}>
                     {title.map((title, i) => (
                         <View key={i} style={styles.ProfileTitlesBox}>
-                            <TouchableHighlight underlayColor="white" onPress={title != "Notifications" ? (e) => { } : null}>
+                            <TouchableOpacity underlayColor="white" onPress={title != "Notifications" ? (e) => { } : null}>
                                 <Text style={[styles.ProfileHeaderText, {}]}>{title}</Text>
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                             {title == "Notifications" ?
                                 <Switch value={isNotificationOn} color={Color.mainBlue} onValueChange={this.handleNotificationState} />
                                 : null}
@@ -89,14 +88,14 @@ class Profile extends Component {
                     ))}
                     <View style={styles.SocialMediaContainer}>
                         {[Instagram, Facebook, Twitter].map((icon, key) => (
-                            <TouchableHighlight underlayColor="rgba(000,000,000,0.09)" key={key} style={styles.SocialMediaBox} onPress={(e) => this.onSocialMedia(e, key)}>
+                            <TouchableOpacity key={key} style={styles.SocialMediaBox} onPress={(e) => this.onSocialMedia(e, key)}>
                                 <Image style={{ width: 25, height: 25 }} source={icon} />
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         ))}
                     </View>
-                    <TouchableHighlight style={styles.Logout} underlayColor="white">
+                    <TouchableOpacity style={styles.Logout}>
                         <Text style={[styles.ProfileHeaderText, { color: Color.mainBlue }]}>{"Log Out"}</Text>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </View>
             </View>
         )

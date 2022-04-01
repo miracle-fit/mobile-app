@@ -4,7 +4,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { Color } from "../global/Colors"
 import Icon from "react-native-vector-icons/Ionicons"
 import FontAwesome from "react-native-vector-icons/FontAwesome5"
-import { TouchableHighlight, View, Platform } from 'react-native'
+import { TouchableHighlight, View, Platform, Text } from 'react-native'
+import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 
 // Screens 
 import Shop from "../screens/ShopScreen"
@@ -16,7 +17,7 @@ import DrawerScreen from "../screens/DrawerScreen"
 import Orders from "../screens/OrdersScreen"
 import Settings from "../screens/SettingsScreen"
 import Laundry from "../screens/LaundryScreen"
-import { borderEndColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes'
+import { Fonts } from '../global/Fonts'
 
 
 // Home
@@ -74,28 +75,19 @@ const DrawerStack = ({ navigation }) => {
     const ShopStack = createStackNavigator()
     const goToCart = () => {
         return (
-            <View style={{ display: "flex", flexDirection: "row" }}>
-                <TouchableHighlight underlayColor="white" style={{ width: 35, height: 35, marginRight: 5 }} onPress={() => navigation.navigate("WishList")}>
-                    <Icon style={{ position: "absolute", }} name="heart-outline" size={25} color={Color.mainBlue} />
-                </TouchableHighlight >
-                <TouchableHighlight underlayColor="white" style={{ width: 35, height: 35 }} onPress={() => navigation.navigate("Cart")}>
-                    <FontAwesome name="shopping-bag" size={20} color={Color.mainBlue} />
-                </TouchableHighlight >
-            </View>
-        )
-    }
-    const seach = () => {
-        return (
-            <View style={{ display: "flex", flexDirection: "row" }}>
-                <TouchableHighlight underlayColor="white" style={{ width: 35, height: 35, marginLeft: 20 }} onPress={() => { }}>
-                    <Icon style={{ position: "absolute", }} name="search-outline" size={25} color={Color.mainBlue} />
+            <View style={{ display: "flex", flexDirection: "row", paddingRight: 10 }}>
+                <TouchableHighlight underlayColor="white" style={{ width: 35, height: 35, marginRight: 10, marginTop: 20 }} onPress={() => navigation.navigate("Cart")}>
+                    <View>
+                        <MaterialCommunityIcons name="cart-minus" size={30} color={Color.mainGray} />
+                        <Text style={{ position: "absolute", left: 10, top: -12, fontSize: 15, color: Color.mainBlue, fontFamily: Fonts.interBold }}></Text>
+                    </View>
                 </TouchableHighlight >
             </View>
         )
     }
     return (
-        <ShopStack.Navigator screenOptions={{ headerStyle: { shadowColor: 'transparent', elevation: 0 } }}>
-            <ShopStack.Screen name="Shop" options={{ title: "" }} component={Laundry} />
+        <ShopStack.Navigator screenOptions={{ headerShown: false }}>
+            <ShopStack.Screen name="Laundry" options={{ title: "", headerRight: goToCart }} component={Laundry} />
             <ShopStack.Screen name="Details" options={{ headerShown: false }} component={ShopDetailsScreen} />
         </ShopStack.Navigator>
     )
@@ -107,7 +99,6 @@ function LaundryScreen({ navigation }) {
     return (
         <Drawer.Navigator drawerContent={(props) => <DrawerScreen {...props} />}>
             <Drawer.Screen name="Shops" component={DrawerStack} />
-            {/* <Drawer.Screen */}
         </Drawer.Navigator>
     )
 }

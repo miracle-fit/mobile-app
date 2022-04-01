@@ -1,6 +1,7 @@
 const Fonts = {
     interRegular: "Inter-Regular",
-    interBlack: "Inter-Black"
+    interBlack: "Inter-Black",
+    interBold: "Inter-Bold",
 }
 
 

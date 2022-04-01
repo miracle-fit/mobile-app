@@ -6,7 +6,7 @@ export class ShopDetailsScreen extends Component {
     render() {
         return (
             <View >
-                <Text>ShopDetailsScreen</Text>
+                <Text>ShopDetailsScreens</Text>
             </View>
         )
     }
