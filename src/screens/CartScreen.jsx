@@ -31,6 +31,7 @@ const ITEMS = [
 ]
 
 const ShopScreen = (props) => {
+    let key = 0
     const [total, setTotal] = useState(0)
     const [cart, setCart] = useState([])
     const [cartUnGrouped, setCartUnGrouped] = useState([])
@@ -242,6 +243,7 @@ const ShopScreen = (props) => {
                     renderHiddenItem={renderHiddenItem}
                     rightOpenValue={-180}
                     disableRightSwipe
+                    key={() => Math.random() % 10}
                 />
                 <Divider />
                 <VStack height={"180px"} background={"white"} paddingX={"20px"} paddingY={"10px"}>

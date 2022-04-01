@@ -121,8 +121,7 @@ export class GetTailor extends Component {
         const { fullName, phone, date, details } = this.state
         return (
             <SafeAreaView style={{ backgroundColor: "white", padding: 20 }}>
-                <KeyboardAwareScrollView style={{ height: "100%" }}>
-                    <Text style={styles.Title}>Book a Tailor</Text>
+                <KeyboardAwareScrollView style={{ height: "100%", paddingTop: 20 }}>
                     <View style={styles.Tailor}>
                         <Text style={styles.Label}>Full Name</Text>
                         <View style={styles.TextInputCointainer}>
@@ -204,7 +203,6 @@ const styles = StyleSheet.create({
     Title: {
         fontSize: 26,
         padding: 20,
-        paddingTop: 40,
         fontWeight: "bold",
         textAlign: "center",
         fontFamily: Fonts.interBlack

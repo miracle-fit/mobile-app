@@ -4,6 +4,7 @@ import { Fonts } from '../global/Fonts'
 import { Color } from '../global/Colors'
 import axios from 'axios'
 import moment from "moment"
+import { Heading, NativeBaseProvider } from "native-base";
 
 import laundry from "../assets/img/icons/laundry.png"
 import tailoring from "../assets/img/icons/tailoring.png"
@@ -78,38 +79,40 @@ class Orders extends Component {
         })
         console.log(sortByDate, "sort")
         return (
-            <View style={styles.Appointments}>
-                {sortByDate.length > 0 ?
-                    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.Scroll}>
-                        {sortByDate.map((appointment, key) => (
-                            <TouchableHighlight underlayColor="white" key={key} style={styles.Orders} onPress={(e) => this.handleOnPress(appointment.id)}>
-                                <View style={styles.DetailsBox}>
-                                    <View style={styles.Top}>
-                                        <Text style={{ fontSize: 20, color: "#000000", fontWeight: "bold", fontFamily: Fonts.interRegular, textTransform: "capitalize" }}>{appointment.user.fullName}</Text>
-                                        <Text style={{ paddingRight: 10, fontFamily: Fonts.interRegular }}>{`#${"423543654725"}`}</Text>
-                                    </View>
-                                    <View style={styles.Bottom}>
-                                        <View style={styles.BottomLeft}>
-                                            <Image source={ appointment.isAOrder ? laundry : tailoring} style={{ width: 30, height: 30 }} />
+            <NativeBaseProvider>
+                <View style={styles.Appointments}>
+                    {sortByDate.length > 0 ?
+                        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.Scroll}>
+                            {sortByDate.map((appointment, key) => (
+                                <TouchableHighlight underlayColor="white" key={key} style={styles.Orders} onPress={(e) => this.handleOnPress(appointment.id)}>
+                                    <View style={styles.DetailsBox}>
+                                        <View style={styles.Top}>
+                                            <Heading size={"md"} style={{ textTransform: "capitalize" }}>{appointment.user.fullName}</Heading>
+                                            <Heading size={"xs"} style={{ paddingRight: 10, color: "rgba(112,112,112,1)" }}>{`#${"423543654725"}`}</Heading>
                                         </View>
-                                        <View style={styles.BottomRight}>
-                                            <Text style={{ fontSize: 15, color: "rgba(112,112,112,1)", fontFamily: Fonts.interRegular, }}>Schedule</Text>
-                                            <Text style={{ fontSize: 15, color: "rgba(000,000,000,0.8)", fontFamily: Fonts.interRegular, paddingTop: 5 }}>{`${moment(appointment.date).format('LLL')}`}</Text>
+                                        <View style={styles.Bottom}>
+                                            <View style={styles.BottomLeft}>
+                                                <Image source={appointment.isAOrder ? laundry : tailoring} style={{ width: 30, height: 30 }} />
+                                            </View>
+                                            <View style={styles.BottomRight}>
+                                                <Heading size={"xs"} style={{ color: "rgba(112,112,112,1)"}}>Schedule</Heading>
+                                                <Heading size={"xs"} style={{ fontSize: 15, color: "rgba(112,112,112,1)", paddingTop: 5 }}>{`${moment(appointment.date).format('LLL')}`}</Heading>
+                                            </View>
                                         </View>
                                     </View>
-                                </View>
+                                </TouchableHighlight>
+                            ))}
+                        </ScrollView> :
+                        <View style={styles.Empty}>
+                            <Text style={{ fontSize: 18, color: "rgba(000,000,000,0.8)", fontFamily: Fonts.interRegular, paddingTop: 5 }}>You do not have order yet</Text>
+                            <Text onPress={() => this.handleOnPressEmpty()} style={{ fontSize: 18, color: "rgba(000,000,000,0.8)", fontFamily: Fonts.interRegular, paddingTop: 5, color: Color.mainBlue, textDecorationLine: "underline" }}>Would you like to play a new order?</Text>
+                            <TouchableHighlight style={styles.TouchableTailor} underlayColor="#f6f6f6" onPress={() => this.handleOnPressEmpty()}>
+                                <Text style={[styles.IconsOptionText, { color: "rgb(112,112,112)", fontSize: 20, textTransform: "uppercase" }]}>{"Get a Tailors"}</Text>
                             </TouchableHighlight>
-                        ))}
-                    </ScrollView> :
-                    <View style={styles.Empty}>
-                        <Text style={{ fontSize: 18, color: "rgba(000,000,000,0.8)", fontFamily: Fonts.interRegular, paddingTop: 5 }}>You do not have order yet</Text>
-                        <Text onPress={() => this.handleOnPressEmpty()} style={{ fontSize: 18, color: "rgba(000,000,000,0.8)", fontFamily: Fonts.interRegular, paddingTop: 5, color: Color.mainBlue, textDecorationLine: "underline" }}>Would you like to play a new order?</Text>
-                        <TouchableHighlight style={styles.TouchableTailor} underlayColor="#f6f6f6" onPress={() => this.handleOnPressEmpty()}>
-                            <Text style={[styles.IconsOptionText, { color: "rgb(112,112,112)", fontSize: 20, textTransform: "uppercase" }]}>{"Get a Tailors"}</Text>
-                        </TouchableHighlight>
-                    </View>
-                }
-            </View>
+                        </View>
+                    }
+                </View>
+            </NativeBaseProvider>
         )
     }
 }

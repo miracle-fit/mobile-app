@@ -6,11 +6,12 @@ import { createStackNavigator, TransitionPresets } from '@react-navigation/stack
 import { Color } from "./src/global/Colors"
 import { useFonts, Inter_400Regular, Inter_500Medium, Inter_700Bold } from '@expo-google-fonts/inter'
 import { HomeScreen, YouScreen, LaundryScreen, OrdersScreen, SettingsScreen, } from "./src/navigation/screens"
-import { Ionicons, MaterialIcons } from "@expo/vector-icons"
+import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons"
 
 import CartsScreen from "./src/screens/CartScreen"
 import GetTailorScreen from "./src/screens/GetTailorCreeen"
 import WishListScreen from "./src/screens/WishListScreen"
+import ShopScreen from "./src/screens/ShopScreen"
 import Icon from "react-native-vector-icons/Ionicons"
 
 // Bar Icons
@@ -25,6 +26,8 @@ const tabBarIcon = ({ route }) => ({
 				return <MaterialIcons name="local-laundry-service" color={focused ? Color.mainBlue : Color.warmGray} size={27} />
 			case "You":
 				return <Ionicons name={focused ? "person" : "person-outline"} color={focused ? Color.mainBlue : Color.warmGray} size={25} />
+				case "Shop":
+				return <Ionicons name={focused ? "cart" : "cart-outline"} color={focused ? Color.mainBlue : Color.warmGray} size={25} />
 		}
 	}
 })
@@ -50,6 +53,7 @@ function Tab() {
 	return (
 		<TabNav.Navigator screenOptions={tabBarIcon} tabBarOptions={tabBarOptions} >
 			<TabNav.Screen name="Laundry" component={LaundryScreen} />
+			<TabNav.Screen name="Home" component={HomeScreen} />
 			{/* <TabNav.Screen name="Shop" component={ShopScreen} /> */}
 			<TabNav.Screen name="Orders" component={OrdersScreen} />
 			<TabNav.Screen name="You" component={YouScreen} />
@@ -82,9 +86,9 @@ export default function App() {
 	const GetTailorStack = createStackNavigator()
 	return (
 		<NavigationContainer>
-			<GetTailorStack.Navigator headerMode="none">
+			<GetTailorStack.Navigator>
 				<GetTailorStack.Screen options={{ title: "" }} name="Home" component={Stack} />
-				<GetTailorStack.Screen options={{ title: "" }} name="Tailor" component={GetTailorScreen} />
+				<GetTailorStack.Screen options={{ title: "Book a Tailor", headerLeftContainerStyle: { marginHorizontal: 10 }, headerStyle: { elevation: 0, shadowOpacity: 0 } }} name="Tailor" component={GetTailorScreen} />
 				<GetTailorStack.Screen options={{ title: "" }} name="Settings" component={SettingsScreen} />
 			</GetTailorStack.Navigator>
 		</NavigationContainer>
