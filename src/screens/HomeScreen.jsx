@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableHighlight, Image, Platform } from 'rea
 import { Fonts } from "../global/Fonts"
 import { Color } from "../global/Colors"
 import { Customize } from "../global/Image"
+import { Heading, NativeBaseProvider } from "native-base"
 // import AsyncStorage from "@react-native-community/async-storage"
 
 class Home extends Component {
@@ -13,21 +14,23 @@ class Home extends Component {
     }
     render() {
         return (
-            <View style={styles.Appointments}>
-                <View style={styles.ItemsOption}>
-                    <Text style={[styles.IconsOptionText, { fontSize: 30, fontWeight: "600" }]}>{"Get a Tailor. "}</Text>
-                    <Text style={[styles.IconsOptionText, { color: Color.mainBlue, fontSize: 28, fontWeight: "600"}]}>{"From Home"}</Text>
+            <NativeBaseProvider>
+                <View style={styles.Appointments}>
+                    <View style={styles.ItemsOption}>
+                        <Heading style={[styles.IconsOptionText, { fontSize: 26, fontWeight: "600" }]}>{"Get a Tailor. "}</Heading>
+                        <Heading style={[styles.IconsOptionText, { fontSize: 26, color: Color.mainBlue, fontWeight: "600" }]}>{"From Home"}</Heading>
+                    </View>
+                    <View>
+                        <Text style={[styles.IconsOptionText, { color: "rgb(112,112,112)", position: "relative", bottom: 15 }]}>{"By. Miracle Fit"}</Text>
+                    </View>
+                    <View style={styles.TouchableComponent}>
+                        <Image source={Customize} style={styles.ItemsImage} />
+                    </View>
+                    <TouchableHighlight style={styles.Touchable} underlayColor="#f6f6f6" onPress={() => this.props.navigation.navigate("Tailor")}>
+                        <Heading size={"sm"} style={[styles.IconsOptionText, { color: "rgb(112,112,112)", textTransform: "uppercase" }]}>{"Get a Tailor"}</Heading>
+                    </TouchableHighlight>
                 </View>
-                <View>
-                    <Text style={[styles.IconsOptionText, { color: "rgb(112,112,112)", position: "relative", bottom: 15 }]}>{"By. Miracle Fit"}</Text>
-                </View>
-                <View style={styles.TouchableComponent}>
-                    <Image source={Customize} style={styles.ItemsImage} />
-                </View>
-                <TouchableHighlight style={styles.Touchable} underlayColor="#f6f6f6" onPress={() => this.props.navigation.navigate("Tailor")}>
-                    <Text style={[styles.IconsOptionText, { color: "rgb(112,112,112)", fontSize: 20, textTransform: "uppercase" }]}>{"Get a Tailor"}</Text>
-                </TouchableHighlight>
-            </View>
+            </NativeBaseProvider>
         )
     }
 }
@@ -104,7 +107,7 @@ const styles = StyleSheet.create({
     },
     IconsOptionText: {
         paddingBottom: 5,
-        fontFamily: Fonts.interRegular
+        // fontFamily: Fonts.interRegular
 
     },
 })

@@ -272,14 +272,14 @@ export class ShopScreen extends Component {
                             </View>
                             <HStack justifyContent="space-evenly" style={[styles.Category]}>
                                 {suits.slice(0, 4).map((item, key) => (
-                                    <TouchableOpacity key={key} style={{ borderRadius: 25, backgroundColor: category[categories[key].title] ? Color.mainBlue : Color.clearGray, width: (100 / 5) + "%", justifyContent: "center" }} underlayColor={category[categories[key].title] ? "white" : Color.lightGray} onPress={category[categories[key].title] ? () => { } : (e) => this.handleFilterd(categories[key].title, e)}>
+                                    <TouchableOpacity key={key} style={[styles.Shadow, { borderRadius: 25, backgroundColor: category[categories[key].title] ? Color.mainBlue : "white", width: (100 / 5) + "%", justifyContent: "center" }]}  onPress={category[categories[key].title] ? () => { } : (e) => this.handleFilterd(categories[key].title, e)}>
                                         <Text style={[styles.CategoryTitle, { color: category[categories[key].title] ? "white" : Color.warmGray }]}>{categories[key].title === "Other" ? "Others" : categories[key].title}</Text>
                                     </TouchableOpacity>
                                 ))}
                             </HStack>
                             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[styles.ShopScreen]}>
                                 {filterdCleaner.map((item, key) => (
-                                    <VStack key={key} underlayColor="white" style={styles.Items}>
+                                    <VStack key={key} underlayColor="white" background={"red.100"} style={styles.Items}>
                                         <VStack flexDirection={"row"}>
                                             <View style={{ width: 50, paddingLeft: 30, alignItems: "center" }}>
                                                 <Image source={{ uri: `http://localhost:3000/laundry/${item.image}` }} resizeMode="contain" style={{ width: 50, height: "100%" }} />
@@ -338,13 +338,15 @@ export class ShopScreen extends Component {
 
 const styles = StyleSheet.create({
     Shadow: {
+        borderRadius: 15,
+        borderWidth: 0.5,
+        borderColor: "rgba(112,112,112,0.3)",
+
         shadowColor: "#000",
         shadowOffset: {
-            width: 0,
-            height: 0
+            width: 5,
+            height: 1
         },
-        shadowOpacity: 0.15,
-        shadowRadius: 2.64,
     },
     CategoryTitle: {
         textTransform: "capitalize",
@@ -379,8 +381,8 @@ const styles = StyleSheet.create({
     },
     Items: {
         width: "95%",
-        height: 100,
-        borderRadius: 5,
+        height: 120,
+        // borderRadius: 5,
         backgroundColor: "white",
         marginBottom: 10,
 
@@ -388,16 +390,17 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
 
-        // borderWidth: 0.2,
-        // borderColor: Color.clearGray,
+        borderRadius: 15,
+        borderWidth: 0.5,
+        borderColor: "rgba(112,112,112,0.15)",
 
-        // shadowColor: "#000",
-        // shadowOffset: {
-        //     width: 5,
-        //     height: 1
-        // },
-        // shadowOpacity: 0.05,
-        // shadowRadius: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 5,
+            height: 1
+        },
+        shadowOpacity: 0.05,
+        shadowRadius: 10,
     }
 })
 export default ShopScreen

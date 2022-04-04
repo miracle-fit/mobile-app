@@ -212,25 +212,25 @@ const ShopScreen = (props) => {
         )
     }
 
-    const handlePlaceOrder = async () => {
-        let products = []
-        cart.forEach(product => {
-            products.push({
-                [product.cart[0].name + "(" + product.cart[0].category + ")"]: {
-                    quatity: product.cart.length,
-                    basePrice: product.cart[0].basePrice,
-                    total: product.cart.length * product.cart[0].price
-                }
-            })
-        })
+    const handlePlaceOrder = async (carts) => {
+        // let products = []
+        // cart.forEach(product => {
+        //     products.push({
+        //         [product.cart[0].name + "(" + product.cart[0].category + ")"]: {
+        //             quatity: product.cart.length,
+        //             basePrice: product.cart[0].basePrice,
+        //             total: product.cart.length * product.cart[0].price
+        //         }
+        //     })
+        // })
 
+        // await axios.post(`http://localhost:3000/orders`, { total, status: "placed", userId: 1, products }).then((res) => {
+        //     cartUnGrouped.forEach(item => {
+        //         handleQuantityMinus(item.id)
+        //     })
+        // })
+        props.navigation.navigate("OrderInfo", { carts: carts, total, cartUnGrouped })
 
-        await axios.post(`http://localhost:3000/orders`, { total, status: "placed", userId: 1, products }).then((res) => {
-            cartUnGrouped.forEach(item => {
-                handleQuantityMinus(item.id)
-            })
-            props.navigation.navigate("Orders")
-        })
     }
 
     return (
@@ -257,8 +257,8 @@ const ShopScreen = (props) => {
                             <Text style={{ fontSize: 22, fontFamily: Fonts.interBold, marginTop: 5 }}>${total}</Text>
                         </VStack>
                     </HStack>
-                    <TouchableOpacity onPress={() => handlePlaceOrder()} style={{ marginTop: 10, justifyContent: "center", alignItems: "center", width: "100%", height: 60, backgroundColor: Color.mainBlue, borderRadius: 10 }}>
-                        <Text style={{ fontSize: 16, fontFamily: Fonts.interBold, color: "white" }}>Place Order</Text>
+                    <TouchableOpacity onPress={() => handlePlaceOrder(cart)} style={{ marginTop: 10, justifyContent: "center", alignItems: "center", width: "100%", height: 60, backgroundColor: Color.mainBlue, borderRadius: 10 }}>
+                        <Text style={{ fontSize: 16, fontFamily: Fonts.interBold, color: "white" }}>Next</Text>
                     </TouchableOpacity>
                 </VStack>
             </VStack>

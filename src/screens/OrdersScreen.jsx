@@ -49,11 +49,8 @@ class Orders extends Component {
         });
     }
 
-    handleOnPress = (id) => {
-        this.props.navigation.navigate("OrderDetail", {
-            itemId: 86,
-            otherParam: 'anything you want here',
-        })
+    handleOnPress = (order) => {
+        this.props.navigation.navigate("OrderDetail", { carts: order })
     }
 
     handleOnPressEmpty = () => {
@@ -84,7 +81,7 @@ class Orders extends Component {
                     {sortByDate.length > 0 ?
                         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.Scroll}>
                             {sortByDate.map((appointment, key) => (
-                                <TouchableHighlight underlayColor="white" key={key} style={styles.Orders} onPress={(e) => this.handleOnPress(appointment.id)}>
+                                <TouchableHighlight underlayColor="white" key={key} style={styles.Orders} onPress={(e) => this.handleOnPress(appointment)}>
                                     <View style={styles.DetailsBox}>
                                         <View style={styles.Top}>
                                             <Heading size={"md"} style={{ textTransform: "capitalize" }}>{appointment.user.fullName}</Heading>
@@ -95,7 +92,7 @@ class Orders extends Component {
                                                 <Image source={appointment.isAOrder ? laundry : tailoring} style={{ width: 30, height: 30 }} />
                                             </View>
                                             <View style={styles.BottomRight}>
-                                                <Heading size={"xs"} style={{ color: "rgba(112,112,112,1)"}}>Schedule</Heading>
+                                                <Heading size={"xs"} style={{ color: "rgba(112,112,112,1)" }}>Schedule</Heading>
                                                 <Heading size={"xs"} style={{ fontSize: 15, color: "rgba(112,112,112,1)", paddingTop: 5 }}>{`${moment(appointment.date).format('LLL')}`}</Heading>
                                             </View>
                                         </View>

@@ -54,7 +54,7 @@ function OrdersScreen({ navigation }) {
     }
     return (
         <OrdersStack.Navigator screenOptions={{ headerStyle: { elevation: 0, borderBottomWidth: Platform.OS === "ios" ? 0.2 : 0.6 } }} >
-            <OrdersStack.Screen options={{ title: "Orders", headerRight: () => newOrder(), headerRightContainerStyle: { paddingRight: 10 } }} name="orders" component={Orders} />
+            <OrdersStack.Screen options={{ title: "", headerRight: () => newOrder(), headerRightContainerStyle: { paddingRight: 10 } }} name="orders" component={Orders} />
             <OrdersStack.Screen options={{ title: "Order Status", headerShown: false }} name="OrderDetail" component={OrderDetailScreen} />
         </OrdersStack.Navigator>
     )

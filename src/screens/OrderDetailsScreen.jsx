@@ -12,14 +12,19 @@ class OrderDetail extends Component {
             date: 'Jul 10, 2021',
             details: 'I want to fix a jacket that I have long time ago.',
             time: '4 pm',
-            orderId: null
+            orderId: "fgnfdkjgn"
         }
     }
 
     componentDidMount() {
-        console.log(this.props)
+        console.log(this.props.route.state)
     }
 
+    handleDeleteCancelOrder = () => {
+        // const { orderId } = this.props.route.params
+        console.log(this.props)
+        this.setState({ dialogVisible: false })
+    }
 
     render() {
         const { tailor, date, details, time, orderId } = this.state
@@ -89,7 +94,7 @@ class OrderDetail extends Component {
                                     <Text style={[styles.OrderDetailsTitle, { color: "red", }]}>Cancel Order</Text>
                                 </TouchableHighlight>
                                 <ConfirmDialog title="Are you sure you want o cancel this order?" visible={this.state.dialogVisible} onTouchOutside={() => this.setState({ dialogVisible: false })}
-                                    positiveButton={{ title: "Yes", onPress: () => this.handleDeleteCancelOrder(orderId) }} negativeButton={{ title: "No", onPress: () => this.setState({ dialogVisible: false }) }} >
+                                    positiveButton={{ title: "Yes", onPress: () => this.handleDeleteCancelOrder() }} negativeButton={{ title: "No", onPress: () => this.setState({ dialogVisible: false }) }} >
                                 </ConfirmDialog>
                             </View>
                         </View>
